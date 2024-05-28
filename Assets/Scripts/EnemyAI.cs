@@ -3,8 +3,8 @@
 //   
 // エージェントの行動決定処理
 //
-// 作成日:  
-// 作成者:  
+// 作成日: 2024/5/15
+// 作成者: 北川 稔明
 // ---------------------------------------------------------  
 using UnityEngine;
 using Unity.MLAgents;
@@ -67,7 +67,7 @@ public class EnemyAI : Agent
     private Rigidbody _thisRb = default;
 
     // 移動スピード
-    private float _moveSpeed = 10f;
+    private float _moveSpeed = 12.5f;
 
     // プレイヤー識別ID
     private enum PLAYER_ID
@@ -160,7 +160,7 @@ public class EnemyAI : Agent
     /// AIの行動決定
     /// 更新頻度は、FixedUpdateと同じ(実質FixedUpdateとして使用できる)  
     /// </summary>
-    /// <param name="actions"></param>
+    /// <param name="actions">AIの行動</param>
     public override void OnActionReceived(ActionBuffers actions)
     {
         // プレイヤーIDが2のときは反転させる
@@ -273,6 +273,10 @@ public class EnemyAI : Agent
         }
     }
 
+    /// <summary>
+    /// 当たり判定
+    /// </summary>
+    /// <param name="collision">当たったオブジェクト</param>
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Pack")
@@ -287,17 +291,24 @@ public class EnemyAI : Agent
     /// <returns>壁かどうか</returns>
     private bool UpWard()
     {
-        bool isMove = false;
+        // 壁かどうか
+        bool isWall = false;
 
+        // Rayの出す位置
         Vector3 upWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + RAY_POS_ADVENT_SUITED);
+        
+        // Rayの角度指定
         Ray upAngle = new Ray(upWardRayPos, new Vector3(0, 0, 1));
+        
+        // Rayの格納
         RaycastHit upWardRay = default;
 
+        // Rayが壁び当たったとき
         if (Physics.Raycast(upAngle, out upWardRay, RAY_LENGTH, _groundLayer))
         {
-            isMove = true;
+            isWall = true;
         }
-        return isMove;
+        return isWall;
     }
 
     /// <summary>
@@ -306,17 +317,24 @@ public class EnemyAI : Agent
     /// <returns>壁かどうか</returns>
     private bool DownWard()
     {
-        bool isMove = false;
+        // 壁かどうか
+        bool isWall = false;
 
+        // Rayの出す位置
         Vector3 downWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - RAY_POS_ADVENT_SUITED);
+
+        // Rayの出す位置
         Ray downAngle = new Ray(downWardRayPos, new Vector3(0, 0, -1));
+
+        // Rayの格納
         RaycastHit downWardRay = default;
 
+        // Rayが壁び当たったとき
         if (Physics.Raycast(downAngle, out downWardRay, RAY_LENGTH, _groundLayer))
         {
-            isMove = true;
+            isWall = true;
         }
-        return isMove;
+        return isWall;
     }
 
 
@@ -326,16 +344,24 @@ public class EnemyAI : Agent
     /// <returns>壁かどうか</returns>
     private bool RightWard()
     {
-        bool isMove = false;
+        // 壁かどうか
+        bool isWall = false;
+
+        // Rayの出す位置
         RaycastHit rightRay = default;
-    Vector3 rightWardRayPos = new Vector3(transform.position.x + RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの出す位置
+        Vector3 rightWardRayPos = new Vector3(transform.position.x + RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの格納
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(1, 0, 0));
 
+        // Rayが壁び当たったとき
         if (Physics.Raycast(rightAngle, out rightRay, RAY_LENGTH, _groundLayer))
         {
-            isMove = true;
+            isWall = true;
         }
-        return isMove;
+        return isWall;
     }
 
     /// <summary>
@@ -344,17 +370,24 @@ public class EnemyAI : Agent
     /// <returns>壁かどうか</returns>
     private bool LeftWard()
     {
-        bool isMove = false;
+        // 壁かどうか
+        bool isWall = false;
 
+        // Rayの出す位置
         Vector3 leftWardRayPos = new Vector3(transform.position.x - RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの出す位置
         Ray leftAngle = new Ray(leftWardRayPos, new Vector3(-1, 0, 0));
+
+        // Rayの格納
         RaycastHit leftRay = default;
 
+        // Rayが壁び当たったとき
         if (Physics.Raycast(leftAngle, out leftRay, RAY_LENGTH, _groundLayer))
         {
-            isMove = true;
+            isWall = true;
         }
-        return isMove;
+        return isWall;
     }
 
 }
