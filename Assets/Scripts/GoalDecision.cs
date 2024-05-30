@@ -14,21 +14,27 @@ public class GoalDecision : MonoBehaviour
 
     #region 変数  
 
-    [SerializeField]
+    [SerializeField,Header("Packオブジェクト")]
     private Rigidbody _rigidbody = default;
 
-    [SerializeField]
+    [SerializeField,Header("Manegerオブジェクト")]
     private GameManeger _gameManeger = default;
 
+    // オブジェクトのタグ格納用
     private string _goalTag = default;
 
-    private int goalId = 0;
+    // ゴールID
+    private int _goalId = 0;
 
     #endregion
 
     #region プロパティ  
 
-    public int GoalId { get => goalId; set => goalId = value; }
+    public int GoalId 
+    { 
+        get => _goalId; 
+        set => _goalId = value; 
+    }
 
     #endregion
 
@@ -37,24 +43,29 @@ public class GoalDecision : MonoBehaviour
     /// <summary>  
     /// 更新前処理  
     /// </summary>  
-    void Start ()
-     {
+    void Start()
+    {
         _goalTag = this.gameObject.tag;
-     }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(_goalTag == "PlayerGoal" && other.tag == "Pack")
+        if (_goalTag == "PlayerGoal" && other.tag == "Pack")
         {
+            // パックを初期化にする
             _rigidbody.velocity = new Vector3(0, 0, 0);
-            other.transform.localPosition = new Vector3(0, 0.1f,0);
-            
+            other.transform.localPosition = new Vector3(0, 0.1f, 0);
+
+            // 勝ったプレイヤーを伝える
             _gameManeger.Goal(1);
         }
         else if (_goalTag == "EnemyGoal" && other.tag == "Pack")
         {
+            // パックを初期化にする   
             _rigidbody.velocity = new Vector3(0, 0, 0);
             other.transform.localPosition = new Vector3(0, 0.1f, 0);
+
+            // 勝ったプレイヤーを伝える
             _gameManeger.Goal(2);
         }
     }

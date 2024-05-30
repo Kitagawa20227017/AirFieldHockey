@@ -1,13 +1,15 @@
 // ---------------------------------------------------------  
-// MyScript.cs  
+// PackMove.cs  
 //   
-// 作成日:  
-// 作成者:  
+// パックの移動処理
+//
+// 作成日: 2024/5/13
+// 作成者: 北川 稔明
 // ---------------------------------------------------------  
 using UnityEngine;
 using System.Collections;
 
-public class MyScript : MonoBehaviour
+public class PackMove : MonoBehaviour
 {
 
     #region 変数  
@@ -18,49 +20,40 @@ public class MyScript : MonoBehaviour
     private const float RAY_POS_ADVENT_SUITED = 0.3f;
 
     // RayCastの長さ
-    private const float RAY_LENGTH = 0.025f;
+    private const float RAY_LENGTH = 0.1f;
 
     #endregion
 
     [SerializeField, Header("レイヤー指定")]
     private LayerMask _groundLayer;
 
+    // Rigidbody格納用
     private Rigidbody _rigidbody = default;
 
+    // Ray格納用
     private RaycastHit _rightRay = default;
     private RaycastHit _leftRay = default;
-
     private RaycastHit _upWardRay = default;
     private RaycastHit _downWardRay = default;
 
     #endregion
-
-    #region プロパティ  
-
-    #endregion
-
-    #region メソッド  
-
-    /// <summary>  
-    /// 初期化処理  
-    /// </summary>  
-    void Awake()
-     {
-     }
+  
+    #region メソッド
   
      /// <summary>  
      /// 更新前処理  
      /// </summary>  
      void Start ()
      {
+        // Rigidbody取得 
         _rigidbody = this.GetComponent<Rigidbody>();
      }
-  
-     /// <summary>  
-     /// 更新処理  
-     /// </summary>  
-     void Update ()
-     {
+
+    /// <summary>  
+    /// 更新処理  
+    /// </summary>  
+    void FixedUpdate()
+    {
         if (_rigidbody.velocity.x > 20f)
         {
             _rigidbody.velocity = new Vector3(20f, _rigidbody.velocity.y, _rigidbody.velocity.z);
@@ -79,12 +72,10 @@ public class MyScript : MonoBehaviour
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, -20f);
         }
 
-
-        if(UpLeftWard())
+        if (UpLeftWard())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x + 1f, _rigidbody.velocity.y, _rigidbody.velocity.z + -1f);
         }
-
 
         if (DownLeftWard())
         {
@@ -96,9 +87,9 @@ public class MyScript : MonoBehaviour
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.z - 1f, _rigidbody.velocity.y, _rigidbody.velocity.z - 1f);
         }
 
-        if(DownRightWard())
+        if (DownRightWard())
         {
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.y - 1f, _rigidbody.velocity.y, _rigidbody.velocity.z +1f);
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.y - 1f, _rigidbody.velocity.y, _rigidbody.velocity.z + 1f);
         }
     }
 
@@ -112,7 +103,7 @@ public class MyScript : MonoBehaviour
         Ray upAngle = new Ray(upWardRayPos, new Vector3(0, 0, 1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(1, 0, 0));
 
-        if (Physics.Raycast(upAngle, out _upWardRay, 0.1f, _groundLayer) && Physics.Raycast(rightAngle, out _upWardRay, 0.1f, _groundLayer))
+        if (Physics.Raycast(upAngle, out _upWardRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(rightAngle, out _upWardRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
         }
@@ -128,7 +119,7 @@ public class MyScript : MonoBehaviour
         Ray downAngle = new Ray(downWardRayPos, new Vector3(0, 0, -1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(1, 0, 0));
 
-        if (Physics.Raycast(downAngle, out _downWardRay, 0.1f, _groundLayer) && Physics.Raycast(rightAngle, out _downWardRay, 0.1f, _groundLayer))
+        if (Physics.Raycast(downAngle, out _downWardRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(rightAngle, out _downWardRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
         }
@@ -144,7 +135,7 @@ public class MyScript : MonoBehaviour
         Ray upAngle = new Ray(upWardRayPos, new Vector3(0, 0, 1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(-1, 0, 0));
 
-        if (Physics.Raycast(rightAngle, out _rightRay, 0.1f, _groundLayer) && Physics.Raycast(upAngle, out _rightRay, 0.1f, _groundLayer))
+        if (Physics.Raycast(rightAngle, out _rightRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(upAngle, out _rightRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
         }
@@ -161,7 +152,7 @@ public class MyScript : MonoBehaviour
         Ray downAngle = new Ray(downWardRayPos, new Vector3(0, 0, -1));
         Ray leftAngle = new Ray(leftWardRayPos, new Vector3(-1, 0, 0));
 
-        if (Physics.Raycast(leftAngle, out _leftRay, 0.1f, _groundLayer) && Physics.Raycast(downAngle, out _leftRay, 0.1f, _groundLayer))
+        if (Physics.Raycast(leftAngle, out _leftRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(downAngle, out _leftRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
         }

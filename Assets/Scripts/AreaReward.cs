@@ -1,54 +1,34 @@
 // ---------------------------------------------------------  
-// MyScript1.cs  
+// AreaReward.cs  
 //   
-// 作成日:  
-// 作成者:  
+// エリアによる報酬
+//
+// 作成日: 2024/5/20
+// 作成者: 北川 稔明
 // ---------------------------------------------------------  
 using UnityEngine;
 using Unity.MLAgents;
 
 
-public class MyScript1 : MonoBehaviour
+public class AreaReward : MonoBehaviour
 {
 
     #region 変数
 
-    [SerializeField]
+    [SerializeField,Header("エージェント")]
     private Agent[] agents = default;
-
-    #endregion
-
-    #region プロパティ  
 
     #endregion
 
     #region メソッド  
 
-    /// <summary>  
-    /// 初期化処理  
-    /// </summary>  
-    void Awake()
-     {
-     }
-  
-     /// <summary>  
-     /// 更新前処理  
-     /// </summary>  
-     void Start ()
-     {
-  
-     }
-  
-     /// <summary>  
-     /// 更新処理  
-     /// </summary>  
-     void Update ()
-     {
-       
-     }
-
+    /// <summary>
+    /// エリア内処理
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
+        // 条件に合う場合報酬を減らしていく
         if(other.tag == "Pack" && this.tag == "PlayerArea")
         {
             agents[0].AddReward(-0.01f);
@@ -57,9 +37,8 @@ public class MyScript1 : MonoBehaviour
         {
             agents[1].AddReward(-0.01f);
         }
-
     }
 
-
     #endregion
+
 }

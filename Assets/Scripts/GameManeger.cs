@@ -1,7 +1,8 @@
 // ---------------------------------------------------------  
-// GamaMene.cs  
+// GameManeger.cs  
 //   
-// ゲームマネージャー
+// ゲーム管理
+
 //
 // 作成日: 2024/5/13
 // 作成者: 北川 稔明
@@ -20,15 +21,14 @@ public class GameManeger : MonoBehaviour
     [SerializeField, Header("Packオブジェクト")]
     private GameObject _pack;
 
-    [SerializeField,Header("エージェント0")]
+    [SerializeField,Header("エージェント")]
     private Agent[] _agent = default;
+
+    [SerializeField,Header("EnemyAIスクリプト")]
+    private EnemyAI[] _enemyAI = default;
 
     // Rigidbody格納用
     private Rigidbody _rigidbody;
-
-    #endregion
-
-    #region プロパティ  
 
     #endregion
 
@@ -67,20 +67,35 @@ public class GameManeger : MonoBehaviour
     public void Goal(int Id)
     {
         // それぞれのエージェントに報酬を与える
-        if (Id == 2)
-        {
-            this._agent[0].AddReward(-1.2f);
-            this._agent[1].AddReward(1f);
-        }
-        else if (Id == 1)
+        if (Id == 1)
         {
             this._agent[0].AddReward(1f);
-            this._agent[1].AddReward(-1.2f);
+
+            // プレイヤー操作のとき
+            if(!_enemyAI[1].IsPlayer)
+            {
+                this._agent[1].AddReward(-1.2f);
+            }
+        }
+        else if(Id == 2)
+        {
+            this._agent[0].AddReward(-1.2f);
+
+            // プレイヤー操作のとき
+            if (!_enemyAI[1].IsPlayer)
+            {
+                this._agent[1].AddReward(1f);
+            }
         }
 
         // それぞれエージェントのエピソードを終了する
         this._agent[0].EndEpisode();
-        this._agent[1].EndEpisode();
+
+        // プレイヤー操作のとき
+        if (!_enemyAI[1].IsPlayer)
+        {
+            this._agent[1].EndEpisode();
+        }
 
         // 初期化
         Reset();
