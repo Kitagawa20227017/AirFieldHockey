@@ -60,6 +60,9 @@ public class EnemyAI : Agent
     [SerializeField, Header("GameManegerスクリプト")]
     private GameManeger _gameManeger = default;
 
+    // プレイヤー操作かどうか
+    private bool _isPlayer = false;
+
     // パックのRigidbody
     private Rigidbody _puckRb = default;
 
@@ -84,7 +87,15 @@ public class EnemyAI : Agent
 
     #region プロパティ  
 
+    // プレイヤー操作かどうか
+    public bool IsPlayer 
+    { 
+        get => _isPlayer; 
+    }
+
     #endregion
+
+    #region メソッド
 
     /// <summary>
     /// 更新前処理 
@@ -94,6 +105,7 @@ public class EnemyAI : Agent
         // パックのデータ取得
         _thisRb = this.gameObject.GetComponent<Rigidbody>();
         _puckRb = _packObj.GetComponent<Rigidbody>();
+        _isPlayer = false;
     }
 
     /// <summary>
@@ -244,33 +256,7 @@ public class EnemyAI : Agent
     /// <param name="actionsOut"></param>
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        var actionsOuts = actionsOut.DiscreteActions;
-        actionsOuts[0] = 0;
-        actionsOuts[1] = 0;
-        actionsOuts[2] = 0;
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            actionsOuts[0] = 1;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            actionsOuts[0] = 2;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            actionsOuts[1] = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            actionsOuts[1] = 2;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            actionsOuts[2] = 1;
-        }
+        _isPlayer = true;
     }
 
     /// <summary>
@@ -390,4 +376,5 @@ public class EnemyAI : Agent
         return isWall;
     }
 
+    #endregion
 }

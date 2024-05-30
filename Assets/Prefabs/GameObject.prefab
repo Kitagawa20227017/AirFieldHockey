@@ -317,10 +317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4990c5d3866c8fd47ab47c1becae135d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 264
-  _moveSpeed: 20
   _playerId: 1
 --- !u!114 &5548573957390498830
 MonoBehaviour:
@@ -669,6 +669,9 @@ MonoBehaviour:
   - {fileID: 75631669624742333}
   _pack: {fileID: 7102730884677444770}
   _agent:
+  - {fileID: 3015069198841175506}
+  - {fileID: 4698694823496764045}
+  _enemyAI:
   - {fileID: 3015069198841175506}
   - {fileID: 4698694823496764045}
 --- !u!1 &4107922021151932936
@@ -1152,10 +1155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4990c5d3866c8fd47ab47c1becae135d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 264
-  _moveSpeed: 20
   _playerId: 1
 --- !u!114 &6915729080236462688
 MonoBehaviour:
@@ -1374,10 +1377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4990c5d3866c8fd47ab47c1becae135d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _moveSpeed: 15
   _playerId: 1
 --- !u!1 &5854855115913993256
 GameObject:
