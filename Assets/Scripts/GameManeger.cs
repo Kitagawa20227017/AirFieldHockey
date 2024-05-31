@@ -2,7 +2,6 @@
 // GameManeger.cs  
 //   
 // ゲーム管理
-
 //
 // 作成日: 2024/5/13
 // 作成者: 北川 稔明
@@ -27,6 +26,15 @@ public class GameManeger : MonoBehaviour
     [SerializeField,Header("EnemyAIスクリプト")]
     private EnemyAI[] _enemyAI = default;
 
+    [SerializeField, Header("勝利点数")]
+    private int _goalConut = 5;
+
+    // プレイヤーの得点
+    private int _playerGoalConut = 0;
+
+    // 相手の得点
+    private int _enemyGoalConut = 0;
+
     // Rigidbody格納用
     private Rigidbody _rigidbody;
 
@@ -41,6 +49,8 @@ public class GameManeger : MonoBehaviour
     {
         // Rigidbody取得
         _rigidbody = _pack.GetComponent<Rigidbody>();
+        _playerGoalConut = 0;
+        _enemyGoalConut = 0;
     }
 
     /// <summary>
@@ -66,7 +76,7 @@ public class GameManeger : MonoBehaviour
     /// <param name="Id">プレイヤーID</param>
     public void Goal(int Id)
     {
-        // それぞれのエージェントに報酬を与える
+        // それぞれのエージェントに報酬を与えて得点を増やす
         if (Id == 1)
         {
             this._agent[0].AddReward(1f);
@@ -76,6 +86,8 @@ public class GameManeger : MonoBehaviour
             {
                 this._agent[1].AddReward(-1.2f);
             }
+
+            _enemyGoalConut++;
         }
         else if(Id == 2)
         {
@@ -86,6 +98,8 @@ public class GameManeger : MonoBehaviour
             {
                 this._agent[1].AddReward(1f);
             }
+
+            _playerGoalConut++;
         }
 
         // それぞれエージェントのエピソードを終了する
@@ -95,6 +109,12 @@ public class GameManeger : MonoBehaviour
         if (!_enemyAI[1].IsPlayer)
         {
             this._agent[1].EndEpisode();
+        }
+
+        // どっちかが勝利点数になったとき
+        if(_playerGoalConut >= _goalConut || _enemyGoalConut >= _goalConut)
+        {
+           
         }
 
         // 初期化
