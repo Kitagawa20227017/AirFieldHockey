@@ -14,7 +14,11 @@ public class PackMove : MonoBehaviour
 
     #region 変数  
 
-    #region const定数
+    #region 定数
+
+    // 最大スピード
+    private const int MAX_SPEED = 20;
+    private const int MIN_SPEED = -20;
 
     // RayCastの位置
     private const float RAY_POS_ADVENT_SUITED = 0.3f;
@@ -54,46 +58,55 @@ public class PackMove : MonoBehaviour
     /// </summary>  
     void FixedUpdate()
     {
-        if (_rigidbody.velocity.x > 20f)
+        // X軸の速度制限
+        if (_rigidbody.velocity.x > MAX_SPEED)
         {
-            _rigidbody.velocity = new Vector3(20f, _rigidbody.velocity.y, _rigidbody.velocity.z);
+            _rigidbody.velocity = new Vector3(MAX_SPEED, _rigidbody.velocity.y, _rigidbody.velocity.z);
         }
-        else if (_rigidbody.velocity.x < -20f)
+        else if (_rigidbody.velocity.x < MIN_SPEED)
         {
-            _rigidbody.velocity = new Vector3(-20f, _rigidbody.velocity.y, _rigidbody.velocity.z);
-        }
-
-        if (_rigidbody.velocity.z > 20f)
-        {
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, 20f);
-        }
-        else if (_rigidbody.velocity.x < -20f)
-        {
-            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, -20f);
+            _rigidbody.velocity = new Vector3(MIN_SPEED, _rigidbody.velocity.y, _rigidbody.velocity.z);
         }
 
+        // Z軸の速度制限
+        if (_rigidbody.velocity.z > MAX_SPEED)
+        {
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, MAX_SPEED);
+        }
+        else if (_rigidbody.velocity.x < MIN_SPEED)
+        {
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, _rigidbody.velocity.y, MIN_SPEED);
+        }
+
+        // 左上の角のとき
         if (UpLeftWard())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x + 1f, _rigidbody.velocity.y, _rigidbody.velocity.z + -1f);
         }
 
+        // 左下の角のとき
         if (DownLeftWard())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.x + 1f, _rigidbody.velocity.y, _rigidbody.velocity.z + 1f);
         }
 
+        // 右上の角のとき
         if (UpRightWard())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.z - 1f, _rigidbody.velocity.y, _rigidbody.velocity.z - 1f);
         }
 
+        // 右下の角のとき
         if (DownRightWard())
         {
             _rigidbody.velocity = new Vector3(_rigidbody.velocity.y - 1f, _rigidbody.velocity.y, _rigidbody.velocity.z + 1f);
         }
     }
 
-
+    /// <summary>
+    /// 左上の角の詰み防止
+    /// </summary>
+    /// <returns>左上の角かどうか</returns>
     private bool UpRightWard()
     {
         bool isMove = false;
@@ -110,6 +123,10 @@ public class PackMove : MonoBehaviour
         return isMove;
     }
 
+    /// <summary>
+    /// 左下の角の詰み防止
+    /// </summary>
+    /// <returns>左下の角かどうか</returns>
     private bool DownRightWard()
     {
         bool isMove = false;
@@ -126,6 +143,10 @@ public class PackMove : MonoBehaviour
         return isMove;
     }
 
+    /// <summary>
+    /// 右上の角の詰み防止
+    /// </summary>
+    /// <returns>右上の角かどうか</returns>
     private bool UpLeftWard()
     {
         bool isMove = false;
@@ -142,7 +163,10 @@ public class PackMove : MonoBehaviour
         return isMove;
     }
 
-
+    /// <summary>
+    /// 右下の角の詰み防止
+    /// </summary>
+    /// <returns>右下の角かどうか</returns>
     private bool DownLeftWard()
     {
         bool isMove = false;

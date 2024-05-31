@@ -17,7 +17,7 @@ public class EnemyAI : Agent
 
     #region 変数  
 
-    #region const定数
+    #region 定数
 
     // X軸の移動範囲
     private const float MOVE_POS_LIMIT_X = 9.5f;

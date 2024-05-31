@@ -14,11 +14,26 @@ public class PlayerInput : MonoBehaviour
 
     #region 変数  
 
+    #region 定数
+
+    // X軸の行動制限
+    private const float MOVE_X_POS_MAX = 9.53f;
+    private const float MOVE_X_POS_MIN = -0.01f;
+
+    // Z軸の行動制限
+    private const float MOVE_Z_POS_MAX = 4.54f;
+    private const float MOVE_Z_POS_MIN = -4.54f;
+
+    #endregion
+
     [SerializeField,Header("Playerオブジェクト")]
     private GameObject Player = default;
 
     [SerializeField, Header("レイヤー指定")]
     private LayerMask _groundLayer;
+
+    [SerializeField, Header("Playerオブジェクト")]
+    private EnemyAI _enemyAI = default;
 
     // ローカル座標格納用
     Vector3 _localPos = default;
@@ -35,15 +50,8 @@ public class PlayerInput : MonoBehaviour
     // Rigidbody格納用
     Rigidbody _playerRi = default;
 
-    // プレイヤーID
-    private enum PLAYER_ID
-    {
-        Player1 = 1,
-        Player2 = 2,
-    };
-
-    [SerializeField,Header("プレイヤーID")]
-    private PLAYER_ID _playerId = default;
+    // ポーズ中かどうか
+    private bool _isStop = false;
 
     #endregion
 
@@ -54,15 +62,32 @@ public class PlayerInput : MonoBehaviour
     /// </summary>  
     void Start()
     {
-        Cursor.visible = false;
-        _playerRi = Player.gameObject.GetComponent<Rigidbody>();
+        if (!_enemyAI.IsPlayer)
+        {
+            Cursor.visible = false;
+            _playerRi = Player.gameObject.GetComponent<Rigidbody>();
+        }
     }
 
     /// <summary>  
     /// 更新処理  
+    /// </summary>
+    private void Update()
+    {
+        
+    }
+
+    /// <summary>  
+    /// 一定時間処理  
     /// </summary>  
     private void FixedUpdate()
     {
+        // プレイヤー操作ではないときは実行しない
+        if(!_enemyAI.IsPlayer)
+        {
+            return;
+        }
+
         // マウス座標取得
         _mousePos = Input.mousePosition;
         
@@ -76,8 +101,8 @@ public class PlayerInput : MonoBehaviour
         _playerPos = new Vector3(_localPos.x, Player.transform.localPosition.y, _localPos.z);
         
         // 範囲外に出ないように補正
-        _playerPos.x = Mathf.Clamp(_playerPos.x, -0.01f, 9.53f);
-        _playerPos.z = Mathf.Clamp(_playerPos.z, -4.54f, 4.54f);
+        _playerPos.x = Mathf.Clamp(_playerPos.x, MOVE_X_POS_MIN, MOVE_X_POS_MAX);
+        _playerPos.z = Mathf.Clamp(_playerPos.z, MOVE_Z_POS_MIN, MOVE_Z_POS_MAX);
         
         // 移動
         _playerRi.MovePosition(_playerPos);
