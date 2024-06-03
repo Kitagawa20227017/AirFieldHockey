@@ -60,9 +60,6 @@ public class EnemyAI : Agent
     [SerializeField, Header("GameManegerスクリプト")]
     private GameManeger _gameManeger = default;
 
-    // プレイヤー操作かどうか
-    private bool _isPlayer = false;
-
     // パックのRigidbody
     private Rigidbody _puckRb = default;
 
@@ -71,6 +68,9 @@ public class EnemyAI : Agent
 
     // 移動スピード
     private float _moveSpeed = 12.5f;
+
+    // プレイヤー操作かどうか
+    private bool _isPlayer = false;
 
     // プレイヤー識別ID
     private enum PLAYER_ID

@@ -20,11 +20,11 @@ public class GoalDecision : MonoBehaviour
     [SerializeField,Header("Manegerオブジェクト")]
     private GameManeger _gameManeger = default;
 
-    // オブジェクトのタグ格納用
-    private string _goalTag = default;
-
     // ゴールID
     private int _goalId = 0;
+
+    // オブジェクトのタグ格納用
+    private string _goalTag = default;
 
     #endregion
 
