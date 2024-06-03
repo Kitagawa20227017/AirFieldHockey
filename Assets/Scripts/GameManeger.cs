@@ -29,14 +29,17 @@ public class GameManeger : MonoBehaviour
     [SerializeField, Header("勝利点数")]
     private int _goalConut = 5;
 
+    [SerializeField,Header("GameSceneUIスクリプト")]
+    private GameSceneUI _gameSceneUI = default;
+
+    // Rigidbody格納用
+    private Rigidbody _rigidbody;
+
     // プレイヤーの得点
     private int _playerGoalConut = 0;
 
     // 相手の得点
     private int _enemyGoalConut = 0;
-
-    // Rigidbody格納用
-    private Rigidbody _rigidbody;
 
     #endregion
 
@@ -62,11 +65,7 @@ public class GameManeger : MonoBehaviour
         this._rigidbody.velocity = new Vector3(0, 0, 0);
         
         // センターのランダムな座標Zにパックを配置
-        float random = Random.Range(0, 4.5f);
-        if (Random.Range(0, 2) == 0)
-        {
-            random = random * -1;
-        }
+        float random = Random.Range(-4.5f, 4.5f);
         this._pack.transform.localPosition = new Vector3(0, 0.1f, random);
     }
     
@@ -88,6 +87,7 @@ public class GameManeger : MonoBehaviour
             }
 
             _enemyGoalConut++;
+            _gameSceneUI.ScoreUpdata(1, _enemyGoalConut);
         }
         else if(Id == 2)
         {
@@ -100,6 +100,7 @@ public class GameManeger : MonoBehaviour
             }
 
             _playerGoalConut++;
+            _gameSceneUI.ScoreUpdata(2, _playerGoalConut);
         }
 
         // それぞれエージェントのエピソードを終了する
@@ -112,9 +113,13 @@ public class GameManeger : MonoBehaviour
         }
 
         // どっちかが勝利点数になったとき
-        if(_playerGoalConut >= _goalConut || _enemyGoalConut >= _goalConut)
+        if(_playerGoalConut >= _goalConut)
         {
            
+        }
+        else if(_enemyGoalConut >= _goalConut)
+        {
+
         }
 
         // 初期化

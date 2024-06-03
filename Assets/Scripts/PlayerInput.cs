@@ -74,7 +74,10 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = !Cursor.visible;
+        }
     }
 
     /// <summary>  
@@ -82,6 +85,8 @@ public class PlayerInput : MonoBehaviour
     /// </summary>  
     private void FixedUpdate()
     {
+        
+
         // プレイヤー操作ではないときは実行しない
         if(!_enemyAI.IsPlayer)
         {
