@@ -86,7 +86,6 @@ public class PlayerInput : MonoBehaviour
     private void FixedUpdate()
     {
         
-
         // プレイヤー操作ではないときは実行しない
         if(!_enemyAI.IsPlayer)
         {

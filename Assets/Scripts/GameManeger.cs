@@ -14,9 +14,6 @@ public class GameManeger : MonoBehaviour
 
     #region 変数  
 
-    [SerializeField,Header("ゴール判定")]
-    private GoalDecision[] _goalDecisions = default;
-
     [SerializeField, Header("Packオブジェクト")]
     private GameObject _pack;
 
@@ -50,6 +47,8 @@ public class GameManeger : MonoBehaviour
     /// </summary>  
     void Awake()
     {
+        Time.timeScale = 1;
+
         // Rigidbody取得
         _rigidbody = _pack.GetComponent<Rigidbody>();
         _playerGoalConut = 0;
@@ -115,11 +114,11 @@ public class GameManeger : MonoBehaviour
         // どっちかが勝利点数になったとき
         if(_playerGoalConut >= _goalConut)
         {
-           
+            Time.timeScale = 0;
         }
         else if(_enemyGoalConut >= _goalConut)
         {
-
+            Time.timeScale = 0;
         }
 
         // 初期化
