@@ -15,7 +15,7 @@ public class GameSceneUI : MonoBehaviour
 
     #region 変数  
 
-    [SerializeField, Header("ScoreUI")]
+    [SerializeField, Header("Scoreオブジェクト")]
     private TextMeshProUGUI[] _scoreUI = default;
 
     #endregion
