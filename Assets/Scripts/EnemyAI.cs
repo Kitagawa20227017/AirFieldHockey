@@ -20,19 +20,19 @@ public class EnemyAI : Agent
     #region 定数
 
     // X軸の移動範囲
-    private const float MOVE_POS_LIMIT_X = 9.5f;
+    private const float MOVE_POS_LIMIT_X = 9.20f;
 
     // X軸の移動可能位置(センターライン)
-    private const float MOVE_POS_CENTER_X = 9.49f;
+    private const float MOVE_POS_CENTER_X = 9.19f;
 
     // X軸の移動可能位置(壁側)
-    private const float MOVE_POS_WALL_X = -0.01f;
+    private const float MOVE_POS_WALL_X = 0.19f;
 
     // Z軸の移動範囲
-    private const float MOVE_POS_LIMIT_Z = 4.55f;
+    private const float MOVE_POS_LIMIT_Z = 4.325f;
 
     // Z軸の移動可能位置
-    private const float MOVE_POS_Z = 4.54f;
+    private const float MOVE_POS_Z = 4.324f;
 
     // RayCastの位置
     private const float RAY_POS_ADVENT_SUITED = 0.45f;
