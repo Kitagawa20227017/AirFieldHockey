@@ -1,36 +1,23 @@
 // ---------------------------------------------------------  
-// PlayerInput.cs  
-// 
-// プレイヤー入力処理
+// aaaaaaa.cs  
+//   
 //
-// 作成日: 2024/5/13
+//
+// 作成日: 
 // 作成者: 北川 稔明
 // ---------------------------------------------------------  
 using UnityEngine;
 using System.Collections;
 
-public class PlayerInput : MonoBehaviour
+public class aaaaaaa : MonoBehaviour
 {
+
 
     #region 変数  
 
-    #region 定数
-
-    // X軸の行動制限
-    private const float MOVE_X_POS_MAX = 9.19f;
-    private const float MOVE_X_POS_MIN = 0.19f;
-
-    // Z軸の行動制限
-    private const float MOVE_Z_POS_MAX = 4.324f;
-    private const float MOVE_Z_POS_MIN = -4.324f;
-
-    #endregion
-
-    [SerializeField,Header("Playerオブジェクト")]
-    private GameObject Player = default;
 
     [SerializeField, Header("Playerオブジェクト")]
-    private EnemyAI _enemyAI = default;
+    private GameObject Player = default;
 
     // ローカル座標格納用
     Vector3 _localPos = default;
@@ -39,7 +26,7 @@ public class PlayerInput : MonoBehaviour
     Vector3 _playerPos = default;
 
     // マウス座標格納用
-    Vector3 _mousePos; 
+    Vector3 _mousePos;
 
     // ワールド座標格納用
     Vector3 _worldPos;
@@ -60,10 +47,6 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         _playerRi = Player.gameObject.GetComponent<Rigidbody>();
-        if (!_enemyAI.IsPlayer)
-        {
-            Cursor.visible = false;
-        }
     }
 
     /// <summary>  
@@ -71,10 +54,8 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.visible = !Cursor.visible;
-        }
+
+
     }
 
     /// <summary>  
@@ -83,31 +64,27 @@ public class PlayerInput : MonoBehaviour
     private void FixedUpdate()
     {
 
-        // プレイヤー操作ではないときは実行しない
-        if (!_enemyAI.IsPlayer)
-        {
-            return;
-        }
+
 
         // マウス座標取得
         _mousePos = Input.mousePosition;
 
         // マウス座標をワールド座標に変換
         _worldPos = Camera.main.ScreenToWorldPoint(new Vector3(_mousePos.x, _mousePos.y, 11f));
-        
-        // ワールド座標をローカル座標に変換
+
+        //// ワールド座標をローカル座標に変換
         _localPos = transform.InverseTransformPoint(_worldPos);
 
-        // 移動量を代入
+        //// 移動量を代入
         _playerPos = new Vector3(_localPos.x, Player.transform.localPosition.y, _localPos.z);
 
-        // 範囲外に出ないように補正
-        _playerPos.x = Mathf.Clamp(_playerPos.x, MOVE_X_POS_MIN, MOVE_X_POS_MAX);
-        _playerPos.z = Mathf.Clamp(_playerPos.z, MOVE_Z_POS_MIN, MOVE_Z_POS_MAX);
+        Debug.Log(_playerPos);
 
         // 移動
         _playerRi.MovePosition(_playerPos);
+       
     }
 
     #endregion
+
 }

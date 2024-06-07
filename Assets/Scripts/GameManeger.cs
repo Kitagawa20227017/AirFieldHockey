@@ -15,7 +15,7 @@ public class GameManeger : MonoBehaviour
     #region 変数  
 
     [SerializeField, Header("Packオブジェクト")]
-    private GameObject _pack;
+    private GameObject _pack = default;
 
     [SerializeField,Header("エージェント")]
     private Agent[] _agent = default;
@@ -64,8 +64,8 @@ public class GameManeger : MonoBehaviour
         this._rigidbody.velocity = new Vector3(0, 0, 0);
         
         // センターのランダムな座標Zにパックを配置
-        float random = Random.Range(-4.5f, 4.5f);
-        this._pack.transform.localPosition = new Vector3(0, 0.1f, random);
+        float random = Random.Range(-4.324f, 4.324f);
+        this._pack.transform.localPosition = new Vector3(0, -1.15f, random);
     }
     
     /// <summary>
@@ -112,14 +112,14 @@ public class GameManeger : MonoBehaviour
         }
 
         // どっちかが勝利点数になったとき
-        if(_playerGoalConut >= _goalConut)
-        {
-            Time.timeScale = 0;
-        }
-        else if(_enemyGoalConut >= _goalConut)
-        {
-            Time.timeScale = 0;
-        }
+        //if(_playerGoalConut >= _goalConut)
+        //{
+        //    Time.timeScale = 0;
+        //}
+        //else if(_enemyGoalConut >= _goalConut)
+        //{
+        //    Time.timeScale = 0;
+        //}
 
         // 初期化
         Reset();
