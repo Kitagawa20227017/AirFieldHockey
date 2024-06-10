@@ -112,14 +112,16 @@ public class GameManeger : MonoBehaviour
         }
 
         // どっちかが勝利点数になったとき
-        //if(_playerGoalConut >= _goalConut)
-        //{
-        //    Time.timeScale = 0;
-        //}
-        //else if(_enemyGoalConut >= _goalConut)
-        //{
-        //    Time.timeScale = 0;
-        //}
+        if (_playerGoalConut >= _goalConut)
+        {
+            _gameSceneUI.Outcome(1);
+            Time.timeScale = 0;
+        }
+        else if (_enemyGoalConut >= _goalConut)
+        {
+            _gameSceneUI.Outcome(2);
+            Time.timeScale = 0;
+        }
 
         // 初期化
         Reset();
