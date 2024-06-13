@@ -265,6 +265,7 @@ public class EnemyAI : Agent
     /// <param name="collision">当たったオブジェクト</param>
     private void OnCollisionEnter(Collision collision)
     {
+        // パックに触れたとき報酬を与える
         if (collision.gameObject.tag == "Pack")
         {
             this.SetReward(0.1f);
