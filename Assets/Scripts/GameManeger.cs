@@ -30,7 +30,7 @@ public class GameManeger : MonoBehaviour
     private GameSceneUI _gameSceneUI = default;
 
     // Rigidbody格納用
-    private Rigidbody _rigidbody;
+    private Rigidbody _rigidbody = default;
 
     // プレイヤーの得点
     private int _playerGoalConut = 0;
@@ -47,12 +47,19 @@ public class GameManeger : MonoBehaviour
     /// </summary>  
     void Awake()
     {
-        Time.timeScale = 1;
-
         // Rigidbody取得
         _rigidbody = _pack.GetComponent<Rigidbody>();
         _playerGoalConut = 0;
         _enemyGoalConut = 0;
+    }
+
+    private void Start()
+    {
+        // 位置のリセット
+        Reset();
+
+        // 時間を止める
+        Time.timeScale = 0;
     }
 
     /// <summary>
@@ -61,7 +68,7 @@ public class GameManeger : MonoBehaviour
     public void Reset()
     {
         // パックを止める
-        this._rigidbody.velocity = new Vector3(0, 0, 0);
+        this._rigidbody.velocity = Vector3.zero;
         
         // センターのランダムな座標Zにパックを配置
         float random = Random.Range(-4.324f, 4.324f);
@@ -116,11 +123,13 @@ public class GameManeger : MonoBehaviour
         {
             _gameSceneUI.Outcome(1);
             Time.timeScale = 0;
+            return;
         }
         else if (_enemyGoalConut >= _goalConut)
         {
             _gameSceneUI.Outcome(2);
             Time.timeScale = 0;
+            return;
         }
 
         // 初期化

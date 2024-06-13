@@ -60,21 +60,6 @@ public class PlayerInput : MonoBehaviour
     void Start()
     {
         _playerRi = Player.gameObject.GetComponent<Rigidbody>();
-        if (!_enemyAI.IsPlayer)
-        {
-            Cursor.visible = false;
-        }
-    }
-
-    /// <summary>  
-    /// 更新処理  
-    /// </summary>
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.visible = !Cursor.visible;
-        }
     }
 
     /// <summary>  
