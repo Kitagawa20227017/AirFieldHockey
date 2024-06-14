@@ -60,7 +60,7 @@ public class GameSceneUI : MonoBehaviour
         _sceneName = SceneManager.GetActiveScene().name;
         _conutText.text = _conut.ToString();
         _conutObj.SetActive(true);
-        _conut = 3f;
+        _conut = 5f;
         Load();
         _scoreUI[0].text = "0";
         _scoreUI[1].text = "0";
@@ -154,25 +154,21 @@ public class GameSceneUI : MonoBehaviour
 
     private void Load()
     {
-        Debug.Log(_sceneName);
         if(_sceneName == "AdvancedLevel" && !_sceneLoad.IsAdvancedLoad)
         {
-            Debug.Log("A");
-            _conut = 11f;
+            _conut = 10f;
             _sceneLoad.IsAdvancedLoad = true;
         }
 
         if (_sceneName == "IntermediateLevel" && !_sceneLoad.IsIntermediateLoad)
         {
-            Debug.Log("A");
-            _conut = 11f;
+            _conut = 10f;
             _sceneLoad.IsIntermediateLoad = true;
         }
 
         if (_sceneName == "ElementaryLevel" && !_sceneLoad.IsElementarLoad)
         {
-            Debug.Log("A");
-            _conut = 11f;
+            _conut = 10f;
             _sceneLoad.IsElementarLoad = true;
         }
     }
