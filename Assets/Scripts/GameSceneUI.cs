@@ -15,6 +15,13 @@ public class GameSceneUI : MonoBehaviour
 
     #region 変数  
 
+    #region 変数
+
+    // 初期のタイマー設定
+    private const float INITIAL_TIMER = 6f;
+
+    #endregion
+
     [SerializeField, Header("Scoreオブジェクト")]
     private TextMeshProUGUI[] _scoreUI = default;
 
@@ -68,6 +75,9 @@ public class GameSceneUI : MonoBehaviour
         _result.SetActive(false);
     }
 
+    /// <summary>
+    /// 更新処理
+    /// </summary>
     private void Update()
     {
         // カウントダウン処理
@@ -152,23 +162,29 @@ public class GameSceneUI : MonoBehaviour
         SceneManager.LoadScene("TilteScene");
     }
 
+    /// <summary>
+    /// １回ロードしたかどうか
+    /// </summary>
     private void Load()
     {
+        // 上級
         if(_sceneName == "AdvancedLevel" && !_sceneLoad.IsAdvancedLoad)
         {
-            _conut = 10f;
+            _conut = INITIAL_TIMER;
             _sceneLoad.IsAdvancedLoad = true;
         }
 
+        // 中級
         if (_sceneName == "IntermediateLevel" && !_sceneLoad.IsIntermediateLoad)
         {
-            _conut = 10f;
+            _conut = INITIAL_TIMER;
             _sceneLoad.IsIntermediateLoad = true;
         }
 
+        // 初級
         if (_sceneName == "ElementaryLevel" && !_sceneLoad.IsElementarLoad)
         {
-            _conut = 10f;
+            _conut = INITIAL_TIMER;
             _sceneLoad.IsElementarLoad = true;
         }
     }

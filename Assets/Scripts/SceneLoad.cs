@@ -1,9 +1,9 @@
 // ---------------------------------------------------------  
 // Scene.cs  
 //   
+// １回ロードしたかに処理
 //
-//
-// 作成日: 
+// 作成日: 2024/6/11
 // 作成者: 北川 稔明
 // ---------------------------------------------------------  
 using UnityEngine;
@@ -46,31 +46,4 @@ public class SceneLoad : MonoBehaviour
     }
 
     #endregion
-
-    #region メソッド  
-
-    /// <summary>  
-    /// 初期化処理  
-    /// </summary>  
-    void Awake()
-    {
-    }
-  
-    /// <summary>  
-    /// 更新前処理  
-    /// </summary>  
-    void Start ()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-  
-    /// <summary>  
-    /// 更新処理  
-    /// </summary>  
-    void Update ()
-    {
-    }
-
-    #endregion
-
 }

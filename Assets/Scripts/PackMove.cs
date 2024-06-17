@@ -109,13 +109,18 @@ public class PackMove : MonoBehaviour
     /// <returns>左上の角かどうか</returns>
     private bool UpRightWard()
     {
+        // 動けるかどうか
         bool isMove = false;
 
+        // Rayの位置
         Vector3 upWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + RAY_POS_ADVENT_SUITED);
         Vector3 rightWardRayPos = new Vector3(transform.position.x + RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+        
+        // Rayの角度
         Ray upAngle = new Ray(upWardRayPos, new Vector3(0, 0, 1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(1, 0, 0));
 
+        // Rayが壁とぶつかっているとき
         if (Physics.Raycast(upAngle, out _upWardRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(rightAngle, out _upWardRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
@@ -129,13 +134,18 @@ public class PackMove : MonoBehaviour
     /// <returns>左下の角かどうか</returns>
     private bool DownRightWard()
     {
+        // 動けるかどうか
         bool isMove = false;
 
+        // Rayの位置
         Vector3 downWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - RAY_POS_ADVENT_SUITED);
         Vector3 rightWardRayPos = new Vector3(transform.position.x + RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの角度
         Ray downAngle = new Ray(downWardRayPos, new Vector3(0, 0, -1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(1, 0, 0));
 
+        // Rayが壁とぶつかっているとき
         if (Physics.Raycast(downAngle, out _downWardRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(rightAngle, out _downWardRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
@@ -149,13 +159,18 @@ public class PackMove : MonoBehaviour
     /// <returns>右上の角かどうか</returns>
     private bool UpLeftWard()
     {
+        // 動けるかどうか
         bool isMove = false;
 
+        // Rayの位置
         Vector3 upWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z + RAY_POS_ADVENT_SUITED);
         Vector3 rightWardRayPos = new Vector3(transform.position.x - RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの角度
         Ray upAngle = new Ray(upWardRayPos, new Vector3(0, 0, 1));
         Ray rightAngle = new Ray(rightWardRayPos, new Vector3(-1, 0, 0));
 
+        // Rayが壁とぶつかっているとき
         if (Physics.Raycast(rightAngle, out _rightRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(upAngle, out _rightRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
@@ -169,13 +184,18 @@ public class PackMove : MonoBehaviour
     /// <returns>右下の角かどうか</returns>
     private bool DownLeftWard()
     {
+        // 動けるかどうか
         bool isMove = false;
 
+        // Rayの位置
         Vector3 downWardRayPos = new Vector3(transform.position.x, transform.position.y, transform.position.z - RAY_POS_ADVENT_SUITED);
         Vector3 leftWardRayPos = new Vector3(transform.position.x - RAY_POS_ADVENT_SUITED, transform.position.y, transform.position.z);
+
+        // Rayの角度
         Ray downAngle = new Ray(downWardRayPos, new Vector3(0, 0, -1));
         Ray leftAngle = new Ray(leftWardRayPos, new Vector3(-1, 0, 0));
 
+        // Rayが壁とぶつかっているとき
         if (Physics.Raycast(leftAngle, out _leftRay, RAY_LENGTH, _groundLayer) && Physics.Raycast(downAngle, out _leftRay, RAY_LENGTH, _groundLayer))
         {
             isMove = true;
